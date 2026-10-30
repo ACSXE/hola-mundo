@@ -17,6 +17,13 @@
       color: #1f2937;
     }
     h1 { font-size: 3rem; margin-bottom: 0.5rem; }
+    input {
+      font-size: 1rem;
+      padding: 0.6rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      margin-right: 0.5rem;
+    }
     button {
       font-size: 1rem;
       padding: 0.6rem 1.2rem;
@@ -33,15 +40,27 @@
 <body>
   <h1>¡Hola, Mundo! 👋</h1>
   <p>Mi primera aplicación hecha con Claude Code y GitHub.</p>
-  <button id="boton">Saludar</button>
+  <div>
+    <input id="nombre" type="text" placeholder="Escribe tu nombre">
+    <button id="boton">Saludar</button>
+  </div>
   <p id="mensaje"></p>
 
   <script>
     let clics = 0;
-    document.getElementById('boton').addEventListener('click', () => {
+    const campoNombre = document.getElementById('nombre');
+
+    function saludar() {
       clics++;
+      const nombre = campoNombre.value.trim() || 'desconocido';
       document.getElementById('mensaje').textContent =
-        `¡Hola! Has pulsado el botón ${clics} ${clics === 1 ? 'vez' : 'veces'}.`;
+        `¡Hola, ${nombre}! Has pulsado el botón ${clics} ${clics === 1 ? 'vez' : 'veces'}.`;
+    }
+
+    document.getElementById('boton').addEventListener('click', saludar);
+    // También saluda al pulsar Intro dentro de la casilla
+    campoNombre.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') saludar();
     });
   </script>
 </body>
